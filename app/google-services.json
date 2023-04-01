@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "747256355199",
+    "firebase_url": "https://hydroponicsiot-e2ffc-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hydroponicsiot-e2ffc",
+    "storage_bucket": "hydroponicsiot-e2ffc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747256355199:android:934695e8e9a6498a0ce24a",
+        "android_client_info": {
+          "package_name": "com.example.hydoponicapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747256355199-l1g6t8e52hvt497p4dr4nkeamv7qfal8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ_-gYpgUXkvmtDXGFdK8-pliJUzSFMOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747256355199-l1g6t8e52hvt497p4dr4nkeamv7qfal8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
