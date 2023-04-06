@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">hydoponic app</string>
+    <string name="update_data">Update Data</string>
 </resources>

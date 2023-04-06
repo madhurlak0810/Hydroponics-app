@@ -1,57 +1,70 @@
 package com.example.hydoponicapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
+import com.example.hydoponicapp.databinding.ActivityMainBinding
 import com.google.firebase.database.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dbref : DatabaseReference
-    private lateinit var fRecyclerview : RecyclerView
-    private lateinit var fArrayList : ArrayList<Plants>
+    private lateinit var binding:ActivityMainBinding
+
+
+
+    private lateinit var button : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        fRecyclerview = findViewById(R.id.plantList)
-        fRecyclerview.layoutManager = LinearLayoutManager(this)
-        fRecyclerview.setHasFixedSize(true)
+        binding= ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        arrayListOf<Plants>().also { fArrayList = it }
+
+        button=findViewById(R.id.button)
+        button.setOnClickListener(this)
         getUserData()
+
+    }
+    override fun onClick(view: View?) {
+        when(view?.id){
+            R.id.button->{
+                val intent= Intent(this,UpdateConditions::class.java)
+                startActivity(intent)
+                // do some work here
+            }
+        }
     }
     private fun getUserData() {
 
-        dbref = FirebaseDatabase.getInstance().reference
+        dbref = FirebaseDatabase.getInstance().getReference("Plants")
 
         dbref.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    val waterLevel=snapshot.child("WaterLevel").value
+                    val temperature=snapshot.child("Temperature").value
+                    val humidity=snapshot.child("Humidity").value
+                    val lightSen=snapshot.child("LightSensitivity").value
+                    val plantName=snapshot.child("PlantName").value
+                    binding.mTemp.text=temperature.toString()
+                    binding.mHumidity.text=humidity.toString()
+                    binding.mLightSense.text=lightSen.toString()
+                    binding.mWaterLevel.text=waterLevel.toString()
+                    binding.mPlantName.text=plantName.toString()
 
-                if (snapshot.exists()){
 
-                    for (locSnapshot in snapshot.children){
-
-
-                        val loc = locSnapshot.getValue(Plants::class.java)
-                        val t=fArrayList.binarySearchBy(loc?.PlantName) { it.PlantName }
-                        if(t!=-1) {
-                            fArrayList.removeAt(t)
-                        }
-                        fArrayList.add(loc!!)
-
-
-                    }
-
-                    fRecyclerview.adapter = MyAdapter(fArrayList)
 
 
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@MainActivity,"Failed",Toast.LENGTH_SHORT).show()
+
                 TODO("Not yet implemented")
             }
 
@@ -60,3 +73,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
+
