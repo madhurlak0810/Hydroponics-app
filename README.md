@@ -1,4 +1,4 @@
-### 2. Hydroponics Control System
+### Hydroponics Control System
 **Technologies:** Embedded Systems, NodeMCU, C++, PlatformIO, Kotlin  
 
 #### Overview
